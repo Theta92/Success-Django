@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+    <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet"
+  />
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet"/>
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet"/>
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet"/>
+
+ 
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}"/>
+  <link href=" {%  static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet" />
+  <link href=" {%  static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet" />
+  
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
+    <title>Student Registration Portal - {{title}}</title>
+</head>
+
+<body>
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo me-auto"><a href="index.html">Techie</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="active" href="{% url 'studentreg:home' %}">Home</a></li>
+          <li><a href="{% url 'studentreg:about' %}">About</a></li>
+          <li><a href="{% url 'studentreg:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <!-- .navbar -->
+      <a href="login.html" class="get-started-btn">Log in</a>
+
+      <a href="register.html" class="get-started-btn">Register</a>
+    </div>
+  </header> 
+        {% block content %}{% endblock %}
+        
+ <!-- Vendor JS Files -->
+ <script src="{% static 'assets/vendor/animate.css/animate.min.css' %}"></script>
+ <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+ <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+ <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+ <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+ <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+ <!-- Template Main JS File -->
+ <script src="{% static 'assets/js/main.js' %}"></script>
+        
+    </div>
+
+   
+</body>
+
+</html>
