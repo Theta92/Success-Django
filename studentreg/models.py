@@ -27,6 +27,7 @@ class Student(models.Model):
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
     photo = models.ImageField(upload_to="student_photos/")
+    course = models.ForeignKey(Group, on_delete=models.CASCADE,blank=True,null=True)
 
     def __str__(self):
         return self.address
