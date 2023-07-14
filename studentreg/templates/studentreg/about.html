@@ -1,5 +1,235 @@
 {% extends "studentreg/base.html" %} {% load static %} {% block content %}
 
-<h1>About the Registration Portal</h1>
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h2>About Us</h2>
+        <p>
+          Our courses are tailored to cover a wide range of in-demand tech
+          disciplines. A team of experienced instructors and industry
+          professionals are passionate about sharing their expertise and
+          guiding students towards success
+        </p>
+      </div>
+    </div>
+    <!-- End Breadcrumbs -->
 
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div
+            class="col-lg-6 order-1 order-lg-2"
+            data-aos="fade-left"
+            data-aos-delay="100"
+          >
+            <img src="{% static 'assets/img/about.jpg' %}" class="img-fluid" alt="" />
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+            <h3>We believe in the power of practical learning.</h3>
+            <p class="fst-italic">
+              Forget about dull lectures and outdated textbooks.
+            </p>
+            <ul>
+              <li>
+                <i class="bi bi-check-circle"></i>For beginners and tech
+                enthusiasts looking to enhance skills.
+              </li>
+              <li>
+                <i class="bi bi-check-circle"></i> Dynamic and immersive
+                learning environment with state-of-the-art resources.
+              </li>
+              <li>
+                <i class="bi bi-check-circle"></i> Wealth of extracurricular
+                activities and opportunities for networking and collaboration
+              </li>
+            </ul>
+            <p>
+              We are about fostering a passion for innovation and empowering
+              you to make a meaningful impact in the tech industry.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End About Section -->
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts section-bg">
+      <div class="container">
+        <div class="row counters">
+          <div class="col-lg-3 col-6 text-center">
+            <span
+              data-purecounter-start="0"
+              data-purecounter-end="1232"
+              data-purecounter-duration="1"
+              class="purecounter"
+            ></span>
+            <p>Students</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span
+              data-purecounter-start="0"
+              data-purecounter-end="64"
+              data-purecounter-duration="1"
+              class="purecounter"
+            ></span>
+            <p>Modules</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span
+              data-purecounter-start="0"
+              data-purecounter-end="42"
+              data-purecounter-duration="1"
+              class="purecounter"
+            ></span>
+            <p>Events</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span
+              data-purecounter-start="0"
+              data-purecounter-end="15"
+              data-purecounter-duration="1"
+              class="purecounter"
+            ></span>
+            <p>Trainers</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Counts Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Testimonials</h2>
+          <p>What are they saying</p>
+        </div>
+
+        <div
+          class="testimonials-slider swiper"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="testimonial-wrap">
+                <div class="testimonial-item">
+                  <img
+                    src="assets/img/testimonials/testimonials-1.jpg"
+                    class="testimonial-img"
+                    alt=""
+                  />
+                  <h3>Saul Goodman</h3>
+                  <h4>Buisness Analytics</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    The practical projects and real-world examples provided
+                    helped me bridge the gap between theory and application.
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-wrap">
+                <div class="testimonial-item">
+                  <img
+                    src="assets/img/testimonials/testimonials-2.jpg"
+                    class="testimonial-img"
+                    alt=""
+                  />
+                  <h3>Sara Wilsson</h3>
+                  <h4>Big Data</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    The community of learners and the collaborative
+                    environment made my learning journey enjoyable and
+                    rewarding. Truly exceptional!
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-wrap">
+                <div class="testimonial-item">
+                  <img
+                    src="assets/img/testimonials/testimonials-3.jpg"
+                    class="testimonial-img"
+                    alt=""
+                  />
+                  <h3>Jena Karlis</h3>
+                  <h4>Computing</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    Thanks to this department, I gained the skills and
+                    confidence to pursue a successful career in programming.
+                    Highly recommended!
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-wrap">
+                <div class="testimonial-item">
+                  <img
+                    src="assets/img/testimonials/testimonials-4.jpg"
+                    class="testimonial-img"
+                    alt=""
+                  />
+                  <h3>Matt Brandon</h3>
+                  <h4>Artificial Intelligence</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    Attending courses at this tech teaching department
+                    transformed my passion for technology into a marketable
+                    skill set. It opened doors to exciting opportunities!
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-wrap">
+                <div class="testimonial-item">
+                  <img
+                    src="{% static 'assets/img/testimonials/testimonials-5.jpg' %}"
+                    class="testimonial-img"
+                    alt=""
+                  />
+                  <h3>John Larson</h3>
+                  <h4>Entrepreneur</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    The instructors at this tech teaching department are
+                    knowledgeable and supportive. Their hands-on approach made
+                    learning complex concepts a breeze!
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- End testimonial item -->
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+    <!-- End Testimonials Section -->
+  </main>
 {% endblock content %}

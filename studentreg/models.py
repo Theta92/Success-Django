@@ -1,14 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 
+
 class Module(models.Model):
     CATEGORY_CHOICES = [
-        ('elective', 'Elective'),
-        ('compulsory', 'Compulsory'),
+        ("elective", "Elective"),
+        ("compulsory", "Compulsory"),
     ]
 
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=10)
+    code = models.SlugField(max_length=10)
     credit = models.IntegerField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     description = models.TextField()
@@ -19,15 +20,14 @@ class Module(models.Model):
         return self.name
 
 
-
 class Student(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_of_birth = models.DateField()
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
     photo = models.ImageField(upload_to="student_photos/")
-    course = models.ForeignKey(Group, on_delete=models.CASCADE,blank=True,null=True)
+    course = models.ForeignKey(Group, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.address
