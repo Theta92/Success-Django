@@ -50,3 +50,34 @@ class StudentCreationForm(forms.ModelForm):
         model = Student
         fields = ("course", "gender")
 
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
+
+
+class StudentProfileUpdateForm(forms.ModelForm):
+    gender = forms.ChoiceField(
+        choices=(
+            ("male", "Male"),
+            ("female", "Female"),
+            ("other", "Other"),
+        )
+    )
+
+    class Meta:
+        """Meta definition for Studentform."""
+
+        model = Student
+        fields = (
+            "date_of_birth",
+            "gender",
+            "address",
+            "city",
+            "country",
+            "gender",
+            "photo",
+        )

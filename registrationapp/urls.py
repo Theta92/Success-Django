@@ -37,4 +37,5 @@ urlpatterns = [
         auth_views.LogoutView.as_view(template_name="studentreg/logout.html"),
         name="logout",
     ),
+    path("profile", views.profile, name="profile"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

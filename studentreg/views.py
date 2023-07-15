@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm, 
+from .forms import RegisterForm, UserUpdateForm, StudentProfileUpdateForm
 
 
 def home(request):
@@ -47,6 +47,25 @@ def register(request):
             #  "student_form": student_form
         },
     )
+
+
+@login_required
+def profile(request):
+    if request.method == "POST":
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        sp_form = StudentProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.student
+        )
+        if u_form.is_valid and sp_form.is_valid:
+            u_form.save()
+            sp_form.save()
+            messages.success(request, "Your account has been successfully updated")
+            return redirect("profile")
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        sp_form = StudentProfileUpdateForm(instance=request.user.student)
+    context = {"u_form": u_form, "sp_form": sp_form, "title": "Student Profile"}
+    return render(request, "studentreg/profile.html", context)
 
 
 def modules(request):
