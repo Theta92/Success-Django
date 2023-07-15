@@ -21,16 +21,22 @@ class Module(models.Model):
 
 
 class Student(models.Model):
+    GENDER_CHOICES = (
+        ("male", "Male"),
+        ("female", "Female"),
+        ("other", "Other"),
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    date_of_birth = models.DateField()
-    address = models.CharField(max_length=100)
-    city = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
-    photo = models.ImageField(upload_to="student_photos/")
+    date_of_birth = models.DateField(null=True, blank=True)
+    address = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    country = models.CharField(max_length=50, null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="other")
+    photo = models.ImageField(upload_to="student_photos/", default="default.jpg")
     course = models.ForeignKey(Group, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return self.address
+        return self.user.first_name
 
 
 class Registration(models.Model):
