@@ -1,4 +1,8 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
+from .forms import RegisterForm, 
 
 
 def home(request):
@@ -18,7 +22,31 @@ def login(request):
 
 
 def register(request):
-    return render(request, "studentreg/register.html", {"title": "Register"})
+    # student_form = StudentCreationForm()
+    register_form = RegisterForm()
+
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f"Your account has been created! Now you can login!"
+            )
+            return redirect("login")
+        else:
+            messages.warning(request, f"Unable to create account!")
+    else:
+        form = RegisterForm()
+
+    return render(
+        request,
+        "studentreg/register.html",
+        {
+            "title": "Register",
+            "register_form": register_form,
+            #  "student_form": student_form
+        },
+    )
 
 
 def modules(request):

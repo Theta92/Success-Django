@@ -1,0 +1,18 @@
+{% extends "studentreg/base.html" %} 
+{% load static %} {% block content %}
+
+<div class="content-section">
+  <div class="media">
+    <p>
+      <img
+        class="rounded-circle account-img"
+        src="{{user.student.photo.url}}"
+      />
+    </p>
+
+    <div class="media-body">
+      <h2 class="account-heading">{{user.username}}</h2>
+      <p class="text-secondary">{{user.email}}</p>
+    </div>
+  </div>
+{% endblock content %}
