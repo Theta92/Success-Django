@@ -16,9 +16,9 @@
         data-aos="zoom-in"
         data-aos-delay="100"
       >
-        <h1>ICT Skills,<br />At your fingertips</h1>
-        <h2>Embrace the technological age. Upskill Today</h2>
-        <a href="courses.html" class="btn-get-started">Get Started</a>
+        <h1>Student Registration,<br />Portal</h1>
+        <h2>Register your course today</h2>
+        <a href="#popular-modules" class="btn-get-started">Get Started</a>
       </div>
     </section>
     <!-- End Hero -->
@@ -57,7 +57,7 @@
               data-aos="fade-left"
               data-aos-delay="100"
             >
-              <img src="assets/img/about.jpg" class="img-fluid" alt="" />
+              <img src="{% static 'assets/img/about.jpg' %}" class="img-fluid" alt="" />
             </div>
           </div>
         </div>
@@ -126,7 +126,7 @@
                   ever-evolving world of technology.
                 </p>
                 <div class="text-center">
-                  <a href="about.html" class="more-btn"
+                  <a href="{% url 'studentreg:about' %}" class="more-btn"
                     >Learn More <i class="bx bx-chevron-right"></i
                   ></a>
                 </div>
@@ -398,13 +398,13 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-3 col-md-6 footer-contact">
-              <h2>Techie</h2>
+              <h2>Success University</h2>
               <p>
                 Computing Dept <br />
                 Sheffield, S1 1WB <br />
                 United Kingdom <br /><br />
                 <strong>Phone:</strong> +44 1234 567 890<br />
-                <strong>Email:</strong> techie@uk.com<br />
+                <strong>Email:</strong> suni@uk.com<br />
               </p>
             </div>
 
@@ -472,7 +472,7 @@
       <div class="container d-md-flex py-4">
         <div class="me-md-auto text-center text-md-start">
           <div class="copyright">
-            &copy; Copyright <strong><span>Techie</span></strong
+            &copy; Copyright <strong><span>Success University</span></strong
             >. All Rights Reserved
           </div>
         </div>

@@ -33,7 +33,7 @@
 <body>
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
-      <h1 class="logo me-auto"><a href="index.html">Techie</a></h1>
+      <h1 class="logo me-auto"><a href="{% url 'studentreg:home' %}">Success University</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -51,7 +51,27 @@
       <a href="register.html" class="get-started-btn">Register</a>
     </div>
   </header> 
-        {% block content %}{% endblock %}
+  <!-- Add the following code to include the form and form-related errors -->
+  {% if user.is_authenticated %}
+      <p>Welcome, {{ user.username }}!</p>
+  {% else %}
+      <form action="{% url 'register' %}" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Register</button>
+      </form>
+      {% if form.errors %}
+          <p>Errors occurred while processing the form:</p>
+          <ul>
+              {% for field in form %}
+                  {% for error in field.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              {% endfor %}
+          </ul>
+      {% endif %}
+  {% endif %}
+{% block content %}{% endblock %}
         
  <!-- Vendor JS Files -->
  <script src="{% static 'assets/vendor/animate.css/animate.min.css' %}"></script>
