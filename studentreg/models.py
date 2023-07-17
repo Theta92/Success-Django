@@ -14,7 +14,7 @@ class Module(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     description = models.TextField()
     availability = models.BooleanField(default=True)
-    courses_allowed = models.ManyToManyField(Group)
+    courses_allowed = models.ManyToManyField(Group, related_name='modules')
 
     def __str__(self):
         return self.name
