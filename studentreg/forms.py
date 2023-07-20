@@ -73,6 +73,71 @@ class RegisterForm(UserCreationForm):
         ),
     )
 
+    username = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Username",
+                "class": "inputField",
+                "id": "Username",
+            }
+        ),
+    )
+
+    first_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "First Name",
+                "class": "inputField",
+                "id": "First Name",
+            }
+        ),
+    )
+
+    last_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Last Name",
+                "class": "inputField",
+                "id": "Last Name",
+            }
+        ),
+    )
+    email = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Email",
+                "class": "inputField",
+                "id": "Email",
+            }
+        ),
+    )
+
+    password1 = forms.CharField(
+        max_length=30,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Password",
+                "class": "inputField",
+                "id": "Password",
+            }
+        ),
+    )
+
+    password2 = forms.CharField(
+        max_length=30,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Confirm Password",
+                "class": "inputField",
+                "id": "Password2",
+            }
+        ),
+    )
+
     class Meta:
         """Meta definition for Registerform."""
 
