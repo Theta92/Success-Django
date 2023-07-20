@@ -8,6 +8,71 @@ from .models import Student
 class RegisterForm(UserCreationForm):
     """Form definition for user and student registration."""
 
+    username = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Username",
+                "class": "inputField",
+                "id": "Username",
+            }
+        ),
+    )
+
+    first_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "First Name",
+                "class": "inputField",
+                "id": "First Name",
+            }
+        ),
+    )
+
+    last_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Last Name",
+                "class": "inputField",
+                "id": "Last Name",
+            }
+        ),
+    )
+    email = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Email",
+                "class": "inputField",
+                "id": "Email",
+            }
+        ),
+    )
+
+    password1 = forms.CharField(
+        max_length=30,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Password",
+                "class": "inputField",
+                "id": "Password",
+            }
+        ),
+    )
+
+    password2 = forms.CharField(
+        max_length=30,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Confirm Password",
+                "class": "inputField",
+                "id": "Password2",
+            }
+        ),
+    )
+
     class Meta:
         """Meta definition for Registerform."""
 
@@ -28,12 +93,13 @@ class StudentCreationForm(forms.ModelForm):
     course = forms.ModelChoiceField(
         queryset=Group.objects.all(),
         empty_label="Select Course",
-        # widget=forms.Select(
-        #     attrs={
-        #         "class": FORM_CLASS_NAME,
-        #         "id": "course",
-        #     }
-        # ),
+        widget=forms.Select(
+            attrs={
+                "placeholder": "courses",
+                "class": "inputField",
+                "id": "Courses",
+            }
+        ),
     )
 
     gender = forms.ChoiceField(
@@ -41,7 +107,14 @@ class StudentCreationForm(forms.ModelForm):
             ("male", "Male"),
             ("female", "Female"),
             ("other", "Other"),
-        )
+        ),
+        widget=forms.Select(
+            attrs={
+                "id": "gender",
+                "class": "inputField",
+                "placeholder": "gender",
+            }
+        ),
     )
 
     class Meta:
@@ -81,3 +154,33 @@ class StudentProfileUpdateForm(forms.ModelForm):
             "gender",
             "photo",
         )
+
+        widgets = {
+            "date_of_birth": forms.DateInput(
+                attrs={
+                    "id": "date_of_birth",
+                    "placeholder": "DD-MM-YYYY",
+                    "type": "date",
+                }
+            ),
+            "address": forms.TextInput(
+                attrs={
+                    "id": "address",
+                }
+            ),
+            "city": forms.TextInput(
+                attrs={
+                    "id": "city",
+                }
+            ),
+            "country": forms.TextInput(
+                attrs={
+                    "id": "country",
+                }
+            ),
+            "photo": forms.FileInput(
+                attrs={
+                    "id": "photo",
+                }
+            ),
+        }

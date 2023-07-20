@@ -2,7 +2,13 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm, UserUpdateForm, StudentProfileUpdateForm
+from .forms import (
+    RegisterForm,
+    UserUpdateForm,
+    StudentProfileUpdateForm,
+    StudentCreationForm,
+)
+from .models import Student
 
 
 def home(request):
@@ -22,31 +28,36 @@ def login(request):
 
 
 def register(request):
-    # student_form = StudentCreationForm()
+    student_form = StudentCreationForm()
     register_form = RegisterForm()
 
     if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
+        register_form = RegisterForm(request.POST)
+        student_form = StudentCreationForm(request.POST)
+
+        import pdb
+
+        pdb.set_trace()
+        if register_form.is_valid() and student_form.is_valid():
+            user = register_form.save(commit=False)
+            course = student_form.cleaned_data.get("course")
+            gender = student_form.cleaned_data.get("gender")
+            student = Student(user=user, course=course, gender=gender)
+            user.save()
+            student.save()
             messages.success(
                 request, f"Your account has been created! Now you can login!"
             )
             return redirect("login")
         else:
             messages.warning(request, f"Unable to create account!")
-    else:
-        form = RegisterForm()
 
-    return render(
-        request,
-        "studentreg/register.html",
-        {
-            "title": "Register",
-            "register_form": register_form,
-            #  "student_form": student_form
-        },
-    )
+    context = {
+        "title": "Register",
+        "student_form": student_form,
+        "register_form": register_form,
+    }
+    return render(request, "studentreg/register.html", context)
 
 
 @login_required
