@@ -1,6 +1,7 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+
 
 from .forms import (
     RegisterForm,
@@ -8,11 +9,13 @@ from .forms import (
     StudentProfileUpdateForm,
     StudentCreationForm,
 )
-from .models import Student
+from .models import Student, Module, Group
 
 
 def home(request):
-    return render(request, "studentreg/home.html", {"title": "Welcome"})
+    courses = Group.objects.all()
+    context = {"title": "Welcome", "courses": courses}
+    return render(request, "studentreg/home.html", context)
 
 
 def about(request):
@@ -79,5 +82,13 @@ def profile(request):
     return render(request, "studentreg/profile.html", context)
 
 
-def modules(request):
-    return render(request, "studentreg/modules.html", {"title": "Modules"})
+def course_detail(request, id):
+    course = get_object_or_404(Group, id=id)
+    context = {"title": "Modules", "course": course, "modules": course.modules.all()}
+    return render(request, "studentreg/course_detail.html", context)
+
+
+def module_detail(request, code):
+    module = get_object_or_404(Module, code=code)
+    context = {"title": "Modules", "module": module}
+    return render(request, "studentreg/module_detail.html", context)

@@ -181,6 +181,7 @@
       </div>
 
       <div class="row mb-4" data-aos="zoom-in" data-aos-delay="100">
+        {% for course in courses %}
         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="course-item">
             <img
@@ -193,7 +194,9 @@
                 class="d-flex justify-content-between align-items-center mb-3"
               >
                 <h4>
-                  <a href="course-details.html">Artificial Intelligence</a>
+                  <a href="{% url 'studentreg:course_detail' course.id %}"
+                    >{{course.name}}</a
+                  >
                 </h4>
               </div>
               <p>
@@ -203,7 +206,9 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+        {% endfor %}
+
+        <!-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="course-item">
             <img
               src="{% static 'assets/img/bigdata.jpg' %}"
@@ -223,10 +228,10 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- End Course Item-->
 
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+        <!-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
           <div class="course-item">
             <img
               src="{% static 'assets/img/games1.jpg' %}"
@@ -248,10 +253,10 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- End Course Item-->
 
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+        <!-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
           <div class="course-item">
             <img
               src="{% static 'assets/img/computing.jpg' %}"
@@ -272,10 +277,10 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- End Course Item-->
-      </div>
-      <div class="row pt-4" data-aos="zoom-in" data-aos-delay="100">
+
+        <!-- <div class="row pt-4" data-aos="zoom-in" data-aos-delay="100">
         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="course-item">
             <img
@@ -324,7 +329,7 @@
         </div>
         <!-- End Course Item-->
 
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+        <!-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
           <div class="course-item">
             <img
               src="{% static 'assets/img/health.jpg' %}"
@@ -348,10 +353,10 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- End Course Item-->
 
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+        <!-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
           <div class="course-item">
             <img
               src="{% static 'assets/img/infotech.jpg' %}"
@@ -374,7 +379,7 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- End Course Item-->
     </div>
