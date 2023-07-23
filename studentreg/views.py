@@ -38,9 +38,6 @@ def register(request):
         register_form = RegisterForm(request.POST)
         student_form = StudentCreationForm(request.POST)
 
-        import pdb
-
-        pdb.set_trace()
         if register_form.is_valid() and student_form.is_valid():
             user = register_form.save(commit=False)
             course = student_form.cleaned_data.get("course")

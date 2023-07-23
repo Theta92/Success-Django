@@ -2,7 +2,7 @@
 
 <main class="container-fluid">
   <section class="container">
-    <h1>Module Page</h1>
+    <h1>Module Details:</h1>
 
     <h6 class="card-title">
       <a href="{% url 'studentreg:module_detail' module.code%}"></a>
@@ -13,6 +13,14 @@
     <p class="card-text">
       <strong>Availability:</strong> {{module.availability}}
     </p>
+    <div class="reg">
+      <button class="regBtn">
+        <div class="text">Register</div>
+      </button>
+      <button class="regBtn">
+        <div class="text">Unregister</div>
+      </button>
+    </div>
   </section>
 </main>
 

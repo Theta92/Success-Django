@@ -1,12 +1,10 @@
-{% extends "studentreg/base.html" %}
+{% extends "studentreg/base.html" %} {% block content %}
 
-{% block content %}
-
-<h2>You have now been logged out</h2>
+<h3 class="lgout">You have now been logged out</h3>
 
 <div class="border-top pt-3">
-
-<small class="text-muted"><a class="ml-2" href="{% url 'login' %}">Login</a></small>
+  <small class="text-muted pb-2"
+    ><a href="{% url 'login' %}" class="get-started-btn ">Log in</a>
 
 </div>
 {% endblock content %}
