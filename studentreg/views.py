@@ -1,12 +1,21 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import RegisterForm, UserUpdateForm, StudentProfileUpdateForm
+
+from .forms import (
+    RegisterForm,
+    UserUpdateForm,
+    StudentProfileUpdateForm,
+    StudentCreationForm,
+)
+from .models import Student, Module, Group
 
 
 def home(request):
-    return render(request, "studentreg/home.html", {"title": "Welcome"})
+    courses = Group.objects.all()
+    context = {"title": "Welcome", "courses": courses}
+    return render(request, "studentreg/home.html", context)
 
 
 def about(request):
@@ -22,31 +31,36 @@ def login(request):
 
 
 def register(request):
-    # student_form = StudentCreationForm()
+    student_form = StudentCreationForm()
     register_form = RegisterForm()
 
     if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
+        register_form = RegisterForm(request.POST)
+        student_form = StudentCreationForm(request.POST)
+
+        import pdb
+
+        pdb.set_trace()
+        if register_form.is_valid() and student_form.is_valid():
+            user = register_form.save(commit=False)
+            course = student_form.cleaned_data.get("course")
+            gender = student_form.cleaned_data.get("gender")
+            student = Student(user=user, course=course, gender=gender)
+            user.save()
+            student.save()
             messages.success(
                 request, f"Your account has been created! Now you can login!"
             )
             return redirect("login")
         else:
             messages.warning(request, f"Unable to create account!")
-    else:
-        form = RegisterForm()
 
-    return render(
-        request,
-        "studentreg/register.html",
-        {
-            "title": "Register",
-            "register_form": register_form,
-            #  "student_form": student_form
-        },
-    )
+    context = {
+        "title": "Register",
+        "student_form": student_form,
+        "register_form": register_form,
+    }
+    return render(request, "studentreg/register.html", context)
 
 
 @login_required
@@ -68,5 +82,13 @@ def profile(request):
     return render(request, "studentreg/profile.html", context)
 
 
-def modules(request):
-    return render(request, "studentreg/modules.html", {"title": "Modules"})
+def course_detail(request, id):
+    course = get_object_or_404(Group, id=id)
+    context = {"title": "Modules", "course": course, "modules": course.modules.all()}
+    return render(request, "studentreg/course_detail.html", context)
+
+
+def module_detail(request, code):
+    module = get_object_or_404(Module, code=code)
+    context = {"title": "Modules", "module": module}
+    return render(request, "studentreg/module_detail.html", context)

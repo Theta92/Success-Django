@@ -58,7 +58,9 @@
   <body>
     <header id="header" class="fixed-top">
       <div class="container-fluid d-flex align-items-center">
-        <h1 class="logo me-auto"><a href="{% url 'studentreg:home' %}">Techie</a></h1>
+        <h1 class="logo me-auto">
+          <a href="{% url 'studentreg:home' %}">Techie</a>
+        </h1>
 
         <nav id="navbar" class="navbar order-last order-lg-0">
           <ul>
@@ -81,6 +83,9 @@
       </div>
     </header>
 
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">{{ message }}</div>
+    {% endfor %} {% endif %}
     <div style="margin-top: 50px">{% block content %}{% endblock %}</div>
     <footer id="footer">
       <div class="footer-top">

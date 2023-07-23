@@ -1,0 +1,19 @@
+{% extends "studentreg/base.html" %} {% load static %} {% block content %}
+
+<main class="container-fluid">
+  <section class="container">
+    <h1>Module Page</h1>
+
+    <h6 class="card-title">
+      <a href="{% url 'studentreg:module_detail' module.code%}"></a>
+      {{module.name}}
+    </h6>
+    <p class="card-text">{{module.code}}</p>
+    <p class="card-text"><strong>Credit:</strong> {{module.category}}</p>
+    <p class="card-text">
+      <strong>Availability:</strong> {{module.availability}}
+    </p>
+  </section>
+</main>
+
+{% endblock %}

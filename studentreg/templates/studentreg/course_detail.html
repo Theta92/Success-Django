@@ -1,0 +1,38 @@
+{% extends "studentreg/base.html" %} {% load static %} {% block content %}
+
+<main class="container-fluid">
+  <section class="container">
+    <h1>Course name: {{ course.name }}</h1>
+    <h3>Modules</h3>
+    <div class="row pt-4">
+      {% for module in modules %}
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'img/infotech.jpg' %}"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <h6 class="card-title">
+              <a href="{% url 'studentreg:module_detail' module.code%}">
+                {{module.name}}
+              </a>
+            </h6>
+            <p class="card-text"><strong>Code:</strong>{{module.code}}</p>
+            <p class="card-text">
+              <strong>Credit:</strong> {{module.category}}
+            </p>
+            <p class="card-text">
+              <strong>Availability:</strong> {{module.availability}}
+            </p>
+            <!-- <a href="#">Lecturers</a> -->
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+
+{% endblock %}
