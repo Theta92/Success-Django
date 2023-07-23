@@ -1041,10 +1041,7 @@ section {
   color: #fff;
   text-decoration: none;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 3fc5738 (login and register interface, login authentication WIP)
 .registermain {
   padding: 50px 200px;
   color: #2e2e2e;
@@ -1140,11 +1137,7 @@ section {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 1px;
-<<<<<<< HEAD
   margin: 10px;
-=======
-  margin-top: 50px;
->>>>>>> 3fc5738 (login and register interface, login authentication WIP)
   cursor: pointer;
 }
 
@@ -1281,4 +1274,4 @@ section {
 .marg {
   /* width: 30%; */
   margin: 10px 0px 20px 270px;
-}
+} 

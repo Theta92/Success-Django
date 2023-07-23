@@ -1,24 +1,24 @@
 {% extends "studentreg/base.html" %} {% load static %}{% load crispy_forms_tags
-%} {% block content %}
-
-<div class="profile">
-  <div class="media mb">
-    <img class="rounded-circle account-img" src="{{user.student.photo.url}}" />
-
-    <div class="media-body">
-      <h2 class="account-heading color">{{user.username}}</h2>
-      <p class="text-secondary">{{user.email}}</p>
+  %} {% block content %}
+  
+  <div class="profile">
+    <div class="media mb">
+      <img class="rounded-circle account-img" src="{{user.student.photo.url}}" />
+  
+      <div class="media-body">
+        <h2 class="account-heading color">{{user.username}}</h2>
+        <p class="text-secondary">{{user.email}}</p>
+      </div>
     </div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+  
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Profile Details</legend>
+  
+        {{ u_form.as_p }} {{ sp_form.as_p }}
+      </fieldset>
+      <button type="Update" class="mb regBtn">Update</button>
+    </form>
   </div>
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-
-    <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Profile Details</legend>
-
-      {{ u_form.as_p }} {{ sp_form.as_p }}
-    </fieldset>
-    <button type="Update" class="mb regBtn">Update</button>
-  </form>
-</div>
-{% endblock content %}
+  {% endblock content %}
