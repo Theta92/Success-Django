@@ -42,7 +42,9 @@ class Student(models.Model):
 class Registration(models.Model):
     student = models.ForeignKey("Student", on_delete=models.CASCADE)
     module = models.ForeignKey("Module", on_delete=models.CASCADE)
-    date_of_registration = models.DateField()
+    date_of_registration = models.DateField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ('student', 'module')
     def __str__(self):
         return f"Registration #{self.id}: {self.student} - {self.module}"

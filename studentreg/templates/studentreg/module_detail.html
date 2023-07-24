@@ -2,25 +2,33 @@
 
 <main class="container-fluid">
   <section class="container">
-    <h1>Module Details:</h1>
+    <h1 class="color">Module Details:</h1>
 
     <h6 class="card-title">
       <a href="{% url 'studentreg:module_detail' module.code%}"></a>
-      {{module.name}}
+      <strong>{{module.name}}</strong>
     </h6>
     <p class="card-text">{{module.code}}</p>
     <p class="card-text"><strong>Credit:</strong> {{module.category}}</p>
     <p class="card-text">
-      <strong>Availability:</strong> {{module.availability}}
+      <strong>Availability:</strong> {% if module.availability %}Open{% else
+      %}Closed{% endif %} {{module.availability}}
     </p>
+    {% if module.availability %}
+
     <div class="reg">
-      <button class="regBtn">
-        <div class="text">Register</div>
-      </button>
-      <button class="regBtn">
-        <div class="text">Unregister</div>
-      </button>
+      <a
+        href="{% url 'studentreg:module_register' module.code %}"
+        class="regBtn"
+        >Register
+      </a>
+      <a
+        href="{% url 'studentreg:module_unregister' module.code %}"
+        class="regBtn"
+        >Unregister
+      </a>
     </div>
+    {% endif %}
   </section>
 </main>
 

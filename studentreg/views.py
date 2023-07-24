@@ -9,7 +9,7 @@ from .forms import (
     StudentProfileUpdateForm,
     StudentCreationForm,
 )
-from .models import Student, Module, Group
+from .models import Student, Module, Group, Registration
 
 
 def home(request):
@@ -89,3 +89,29 @@ def module_detail(request, code):
     module = get_object_or_404(Module, code=code)
     context = {"title": "Modules", "module": module}
     return render(request, "studentreg/module_detail.html", context)
+
+
+@login_required
+def module_register(request, code):
+    module = get_object_or_404(Module, code=code)
+    student = request.user.student  # to fetch current logged in student
+    
+
+    if Registration.objects.filter(student=student, module=module).exists():
+        messages.warning(request, 'You are already registered for this module.')
+    else:
+        Registration.objects.create(student=student, module=module)
+        messages.success(request, f'You have successfully registered for {module.name}.')
+    return redirect('studentreg:module_detail', code=code)
+
+
+@login_required
+def module_unregister(request, code):
+    module = get_object_or_404(Module, code=code)
+    student = request.user.student  # to fetch current logged in student
+    try:
+        registration = Registration.objects.get(student=student, module=module)
+        registration.delete()
+    except Registration.DoesNotExist:
+      messages.warning(request, 'You are not registered on this module.')
+    return redirect('studentreg:module_detail', code=code) 

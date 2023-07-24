@@ -1266,6 +1266,9 @@ section {
 .pad {
   padding: 50px 20px 0 20px;
 }
+.alert {
+  padding-top: 100px;
+}
 
 .media {
   display: flex;
@@ -1281,6 +1284,10 @@ section {
   margin-bottom: 30px;
 }
 
+.color {
+  color: #7d82b8;
+}
+
 .reg {
   display: flex;
   justify-items: center;
@@ -1290,11 +1297,12 @@ section {
 
 .regBtn {
   color: #7d82b8;
-  width: 8.5em;
-  height: 2.9em;
+  padding: 8px 12px;
   border: #7d82b8 0.2em solid;
   border-radius: 11px;
-  text-align: right;
+  font-size: 16px;
+  font-weight: 600;
+
   transition: all 0.6s ease;
 }
 
