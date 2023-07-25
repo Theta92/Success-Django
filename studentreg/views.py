@@ -1,13 +1,21 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.urls import reverse
 
 from .forms import (
     RegisterForm,
     UserUpdateForm,
     StudentProfileUpdateForm,
     StudentCreationForm,
+)
+
+
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView,
 )
 from .models import Student, Module, Group, Registration
 
@@ -95,14 +103,15 @@ def module_detail(request, code):
 def module_register(request, code):
     module = get_object_or_404(Module, code=code)
     student = request.user.student  # to fetch current logged in student
-    
 
     if Registration.objects.filter(student=student, module=module).exists():
-        messages.warning(request, 'You are already registered for this module.')
+        messages.warning(request, "You are already registered for this module.")
     else:
         Registration.objects.create(student=student, module=module)
-        messages.success(request, f'You have successfully registered for {module.name}.')
-    return redirect('studentreg:module_detail', code=code)
+        messages.success(
+            request, f"You have successfully registered for {module.name}."
+        )
+    return redirect("studentreg:module_detail", code=code)
 
 
 @login_required
@@ -113,5 +122,34 @@ def module_unregister(request, code):
         registration = Registration.objects.get(student=student, module=module)
         registration.delete()
     except Registration.DoesNotExist:
-      messages.warning(request, 'You are not registered on this module.')
-    return redirect('studentreg:module_detail', code=code) 
+        messages.warning(request, "You are not registered on this module.")
+    return redirect("studentreg:module_detail", code=code)
+
+
+class CustomPasswordResetView(PasswordResetView):
+    # we still need to take care of when user puts in an incorrect email that doesn't exist
+    # i think  django will not find the user by the incorrect email
+    # so no email will get sent
+    email_template_name = "auth/password_reset_email.html"
+    subject_template_name = "auth/password_reset_subject.txt"
+    template_name = "auth/password_reset_form.html"
+
+    def get_success_url(self):
+        return reverse("password_reset_done")
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "auth/password_reset_done.html"
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = "auth/password_reset_confirm.html"
+
+    # redirect to login page after successful password reset
+    # we also need to show errors if user puts unmatching passwords
+    def get_success_url(self):
+        return reverse("login")
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "auth/password_reset_complete.html"

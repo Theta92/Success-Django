@@ -10,8 +10,9 @@ urlpatterns = [
     path("course/<int:id>", views.course_detail, name="course_detail"),
     path("module/<str:code>", views.module_detail, name="module_detail"),
     path("module_register/<str:code>", views.module_register, name="module_register"),
-    path("module_unregister/<str:code>", views.module_unregister, name="module_unregister"),
-    #  path('', include('django.contrib.auth.urls')),
-
-
+    path(
+        "module_unregister/<str:code>",
+        views.module_unregister,
+        name="module_unregister",
+    ),
 ]
