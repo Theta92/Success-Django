@@ -34,10 +34,6 @@ def contact(request):
     return render(request, "studentreg/contact.html", {"title": "Contact"})
 
 
-def login(request):
-    return render(request, "studentreg/login.html", {"title": "Login"})
-
-
 def register(request):
     student_form = StudentCreationForm()
     register_form = RegisterForm()
@@ -94,8 +90,19 @@ def course_detail(request, id):
 
 
 def module_detail(request, code):
+    student = None
+    if request.user.is_authenticated and not request.user.is_staff:
+        student = request.user.student
+
     module = get_object_or_404(Module, code=code)
-    context = {"title": "Modules", "module": module}
+    context = {
+        "title": "Modules",
+        "registrations": module.module_registrations, 
+        "module": module
+        }
+    if student:
+        context["has_registered"]=student.registered_on_module(module)
+        
     return render(request, "studentreg/module_detail.html", context)
 
 

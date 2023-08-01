@@ -18,7 +18,14 @@ class Module(models.Model):
 
     def __str__(self):
         return self.name
+    
 
+    @property
+    def module_registrations(self):
+        return [
+            {"student": registration.student, "date": registration.date_of_registration}
+            for registration in self.registrations.all()
+        ]
 
 class Student(models.Model):
     GENDER_CHOICES = (
@@ -37,14 +44,18 @@ class Student(models.Model):
 
     def __str__(self):
         return self.user.first_name
+    
+    def registered_on_module(self, module):
+        return self.student_registrations.filter(module=module).exists()
 
 
 class Registration(models.Model):
-    student = models.ForeignKey("Student", on_delete=models.CASCADE)
-    module = models.ForeignKey("Module", on_delete=models.CASCADE)
+    student = models.ForeignKey("Student", on_delete=models.CASCADE, related_name="student_registrations")
+    module = models.ForeignKey("Module", on_delete=models.CASCADE, related_name="registrations")
     date_of_registration = models.DateField(auto_now_add=True)
 
     class Meta:
         unique_together = ('student', 'module')
+
     def __str__(self):
         return f"Registration #{self.id}: {self.student} - {self.module}"

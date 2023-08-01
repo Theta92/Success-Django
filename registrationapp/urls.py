@@ -25,10 +25,9 @@ from studentreg import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("studentreg.urls")),
-    path("login/", views.login, name="login"),
     path("register/", views.register, name="register"),
     path(
-        "login",
+        "login/",
         auth_views.LoginView.as_view(template_name="studentreg/login.html"),
         name="login",
     ),
