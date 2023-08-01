@@ -100,7 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -111,7 +110,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -134,11 +132,18 @@ LOGIN_REDIRECT_URL = "profile"
 LOGIN_URL = "login"
 
 
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = 'success_django'
-# EMAIL_PORT = 330
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = "success_django@backend.com"
-# EMAIL_HOST_PASSWORD = "xxxxxxxxxx"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND setting to use the SMTP backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# email address from which the password reset emails will be sent
+DEFAULT_FROM_EMAIL = 'nanaothman001@gmail.com'
+
+# Email configuration for the SMTP backend
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587  # gmail port for SMTP server
+EMAIL_USE_TLS = True 
+
+# authentication credentials for the SMTP server
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
+EMAIL_HOST_PASSWORD = 'oicqcneeghndyubq'

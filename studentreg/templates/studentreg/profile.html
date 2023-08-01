@@ -1,13 +1,8 @@
 {% extends "studentreg/base.html" %} {% load static %} {% block content %}
 
-<div class="content-section container pad">
-  <div class="media">
-    <p>
-      <img
-        class="rounded-circle account-img"
-        src="{{user.student.photo.url}}"
-      />
-    </p>
+<div class="profile">
+  <div class="media mb">
+    <img class="rounded-circle account-img" src="{{user.student.photo.url}}" />
 
     <div class="media-body">
       <h2 class="account-heading color">{{user.username}}</h2>
@@ -22,7 +17,7 @@
 
       {{ u_form.as_p }} {{ sp_form.as_p }}
     </fieldset>
-    <button type="Update" class="btn btn-outline-primary">Update</button>
+    <button type="Update" class="mb regBtn">Update</button>
   </form>
 </div>
 {% endblock content %}

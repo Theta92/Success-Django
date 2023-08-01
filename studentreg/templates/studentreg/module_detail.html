@@ -11,11 +11,10 @@
     <p class="card-text">{{module.code}}</p>
     <p class="card-text"><strong>Credit:</strong> {{module.category}}</p>
     <p class="card-text">
-      <strong>Availability:</strong> {% if module.availability %}Open{% else
-      %}Closed{% endif %} {{module.availability}}
+      <strong>Availability:</strong>
+      {% if module.availability %}Open{% else %}Closed{% endif %}
     </p>
     {% if module.availability %}
-
     <div class="reg">
       <a
         href="{% url 'studentreg:module_register' module.code %}"
