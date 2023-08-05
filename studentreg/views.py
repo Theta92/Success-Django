@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.core.paginator import Paginator
+
 
 from .forms import (
     RegisterForm,
@@ -132,6 +134,18 @@ def module_unregister(request, code):
         messages.warning(request, "You are not registered on this module.")
     return redirect("studentreg:module_detail", code=code)
 
+@login_required
+def my_registration_page(request):
+    student = request.user.student  # Assuming you have a related Student object for each User
+    registrations = student.student_registrations.select_related('module').order_by('-date_of_registration')
+
+    # Paginate the registrations
+    paginator = Paginator(registrations, 2)  # Show 2 registrations per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'studentreg/my_registration_page.html', {'page_obj': page_obj})
+
 
 class CustomPasswordResetView(PasswordResetView):
     # we still need to take care of when user puts in an incorrect email that doesn't exist
@@ -160,3 +174,4 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = "auth/password_reset_complete.html"
+    
