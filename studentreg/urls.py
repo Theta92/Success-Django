@@ -15,4 +15,5 @@ urlpatterns = [
         views.module_unregister,
         name="module_unregister",
     ),
+    path("my-registration/", views.my_registration_page, name="my_registration_page"),
 ]
