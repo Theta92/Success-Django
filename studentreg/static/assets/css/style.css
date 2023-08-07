@@ -138,7 +138,7 @@ h6 {
 * Get Startet Button 
 */
 .get-started-btn {
-  margin-left: 22px;
+  margin-left: 20px;
   background: #7d82b8;
   color: #fff;
   border-radius: 50px;
@@ -1218,18 +1218,31 @@ section {
 
 .regBtn {
   color: #7d82b8;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border: #7d82b8 0.2em solid;
   border-radius: 11px;
   font-size: 16px;
   font-weight: 600;
-
   transition: all 0.6s ease;
 }
 
 .regBtn:hover {
   background-color: #7d82b8;
   color: #fff;
+}
+.nextBtn {
+  color: #fff;
+  padding: 6px 10px;
+  background-color: #7d82b8;
+  border-radius: 11px;
+  font-size: 16px;
+  transition: all 0.6s ease;
+}
+.nextBtn:hover {
+  background-color: #fff;
+  border: #7d82b8 0.2em solid;
+
+  color: #7d82b8;
 }
 
 .text {

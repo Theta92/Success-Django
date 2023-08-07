@@ -132,19 +132,20 @@ def module_unregister(request, code):
         registration.delete()
     except Registration.DoesNotExist:
         messages.warning(request, "You are not registered on this module.")
-    return redirect("studentreg:module_detail", code=code)
+    return redirect(request.META.get('HTTP_REFERER'))
+
 
 @login_required
-def my_registration_page(request):
+def my_registrations(request):
     student = request.user.student  # Assuming you have a related Student object for each User
     registrations = student.student_registrations.select_related('module').order_by('-date_of_registration')
 
     # Paginate the registrations
-    paginator = Paginator(registrations, 2)  # Show 2 registrations per page
+    paginator = Paginator(registrations, 3)  # Show 3 registrations per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'studentreg/my_registration_page.html', {'page_obj': page_obj})
+    return render(request, 'studentreg/my_registrations.html', {'page_obj': page_obj})
 
 
 class CustomPasswordResetView(PasswordResetView):

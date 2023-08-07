@@ -9,8 +9,7 @@
       </div>
       <div class="registermain">
         <form method="POST" id="signup-form" class="form_main">
-          {% csrf_token %}
-
+          {% csrf_token %} {{ form.non_field_errors }}
           <p class="heading">Registeration Form</p>
           <div class="inputContainer">
             <svg

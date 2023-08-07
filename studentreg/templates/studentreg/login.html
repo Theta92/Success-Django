@@ -6,6 +6,8 @@
         <div class="registermain">
           <form method="POST" id="login-form" class="form_main">
             {% csrf_token %}
+            <!-- {{ form.non_field_errors }} -->
+
             <p class="heading">Log in</p>
             <div class="inputContainer">
               <svg
@@ -30,6 +32,7 @@
                 class="inputField"
                 placeholder="Username"
               />
+              {{ form.username.errors }}
             </div>
             <div class="inputContainer">
               <svg
@@ -55,8 +58,11 @@
                 class="inputField"
                 placeholder="Password"
               />
-            </div>
 
+              {% for error in form.password.errors %}
+              <p>{{error}}</p>
+              {% endfor %}
+            </div>
             <button id="button">Login</button>
           </form>
           <p class="loginhere inputContainer">

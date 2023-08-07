@@ -70,6 +70,14 @@
             <li><a href="{% url 'studentreg:about' %}">About</a></li>
             <li><a href="{% url 'studentreg:contact' %}">Contact</a></li>
             <li><a href="#courses">Courses</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li>
+              <a href="{% url 'studentreg:my_registrations' %}"
+                >My Registrations</a
+              >
+            </li>
+            {% endif %}
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
