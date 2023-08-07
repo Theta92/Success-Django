@@ -1,4 +1,5 @@
 {% extends "studentreg/base.html" %} {% load static %}{% load crispy_forms_tags
+<<<<<<< HEAD
   %} {% block content %}
   
   <div class="profile">
@@ -9,6 +10,17 @@
         <h2 class="account-heading color">{{user.username}}</h2>
         <p class="text-secondary">{{user.email}}</p>
       </div>
+=======
+%} {% block content %}
+
+<div class="profile">
+  <div class="media mb">
+    <img class="rounded-circle account-img" src="{{user.student.photo.url}}" />
+
+    <div class="media-body">
+      <h2 class="account-heading color">{{user.username}}</h2>
+      <p class="text-secondary">{{user.email}}</p>
+>>>>>>> 94bf3fb (my regpage styled)
     </div>
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}

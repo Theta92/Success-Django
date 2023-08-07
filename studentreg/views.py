@@ -175,16 +175,16 @@ def my_registrations(request):
     return render(request, 'studentreg/my_registrations.html', {'page_obj': page_obj})
 
 @login_required
-def my_registration_page(request):
+def my_registrations(request):
     student = request.user.student  # Assuming you have a related Student object for each User
     registrations = student.student_registrations.select_related('module').order_by('-date_of_registration')
 
     # Paginate the registrations
-    paginator = Paginator(registrations, 2)  # Show 2 registrations per page
+    paginator = Paginator(registrations, 3)  # Show 3 registrations per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'studentreg/my_registration_page.html', {'page_obj': page_obj})
+    return render(request, 'studentreg/my_registrations.html', {'page_obj': page_obj})
 
 
 class CustomPasswordResetView(PasswordResetView):
