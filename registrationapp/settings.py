@@ -10,23 +10,30 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-!w@=nmm-w17=akin9o$a=ceuj1ff0vtlxcw-kjdlg$n)n9&du9"
+SECRET_KEY = os.environ.get('SECRET_KEY',"django-insecure-!w@=nmm-w17=akin9o$a=ceuj1ff0vtlxcw-kjdlg$n)n9&du9")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'WEBSITE_HOSTNAME' not in os.environ
 
-ALLOWED_HOSTS = []
-
+if DEBUG:
+    ALLOWED_HOSTS = []
+    
+else:
+    ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME'],'https://' + os.environ['WEBSITE_HOSTNAME']]
+    CRSF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]
+    SECURE_SSL_REDIRECT = True
 
 # Application definition
 
@@ -39,11 +46,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "studentreg.apps.StudentregConfig",
     'crispy_forms',
+    'storages'
 
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -76,12 +85,25 @@ WSGI_APPLICATION = "registrationapp.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['AZURE_DB_NAME'],
+            'HOST': os.environ['AZURE_DB_HOST'],
+            'PORT': os.environ['AZURE_DB_PORT'],
+            'USER': os.environ['AZURE_DB_USER'],
+            'PASSWORD': os.environ['AZURE_DB_PASSWORD'],
+            
+        }
+    }
 
 
 # Password validation
@@ -115,12 +137,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+if DEBUG:
+    STATIC_URL = "static/"
+    MEDIA_ROOT = BASE_DIR / "media"
+    MEDIA_URL = "/media/"
+else:
+    AZURE_SA_NAME = os.environ['AZURE_SA_NAME']
+    AZURE_SA_KEY = os.environ['AZURE_SA_KEY']
+    DEFAULT_FILE_STORAGE = 'registrationapp.storages.AzureMediaStorage'
+    STATICFILES_STORAGE = 'registrationapp.storages.AzureStaticStorage'
+    STATIC_URL = f'https://{AZURE_SA_NAME}.blob.core.windows.net/static/'
+    MEDIA_URL = f'https://{AZURE_SA_NAME}.blob.core.windows.net/media/'
 
-STATIC_URL = "static/"
 
-MEDIA_ROOT = BASE_DIR / "media"
-
-MEDIA_URL = "/media/"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Default primary key field type
