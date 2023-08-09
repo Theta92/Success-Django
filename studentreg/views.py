@@ -3,10 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.core.paginator import Paginator
-<<<<<<< HEAD
-=======
-
->>>>>>> 21486e6 (Registration Page)
 
 # Importing all forms
 from .forms import (
@@ -165,18 +161,6 @@ def my_registrations(request):
     
     # Get student's registrations and paginate them
     student = request.user.student  
-    registrations = student.student_registrations.select_related('module').order_by('-date_of_registration')
-
-    # Paginate the registrations
-    paginator = Paginator(registrations, 3)  # Show 3 registrations per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'studentreg/my_registrations.html', {'page_obj': page_obj})
-
-@login_required
-def my_registrations(request):
-    student = request.user.student  # Assuming you have a related Student object for each User
     registrations = student.student_registrations.select_related('module').order_by('-date_of_registration')
 
     # Paginate the registrations
