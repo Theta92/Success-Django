@@ -36,6 +36,10 @@ def about(request):
 def contact(request):
     return render(request, "studentreg/contact.html", {"title": "Contact"})
 
+def courses(request):
+    courses = Group.objects.all()
+    return render(request, "studentreg/courses.html", {"title": "Courses","courses": courses })
+
 # Register authentication
 def register(request):
    # Initialize forms
