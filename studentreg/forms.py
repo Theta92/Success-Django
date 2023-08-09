@@ -4,9 +4,9 @@ from django.contrib.auth.models import User, Group
 
 from .models import Student
 
-
+# Form for new user registration
 class RegisterForm(UserCreationForm):
-    """Form definition for user and student registration."""
+    """Form definition for user/student registration."""
 
     username = forms.CharField(
         max_length=30,
