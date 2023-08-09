@@ -31,9 +31,10 @@ if DEBUG:
     ALLOWED_HOSTS = []
     
 else:
-    ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME'],'https://' + os.environ['WEBSITE_HOSTNAME']]
-    CRSF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]
+    ALLOWED_HOSTS = ["https://successdjango.azurewebsites.net","successdjango.azurewebsites.net"]
+    CRSF_TRUSTED_ORIGINS = ["https://successdjango.azurewebsites.net"]
     SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO',"https")
 
 # Application definition
 
@@ -47,7 +48,6 @@ INSTALLED_APPS = [
     "studentreg.apps.StudentregConfig",
     'crispy_forms',
     'storages'
-
 ]
 
 MIDDLEWARE = [
