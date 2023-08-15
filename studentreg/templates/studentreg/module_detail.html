@@ -11,42 +11,52 @@
     <p class="card-text">{{module.code}}</p>
     <p class="card-text"><strong>Credit:</strong> {{module.category}}</p>
     <p class="card-text">
-      <strong>Availability:</strong> {% if module.availability %}Open{% else %}Closed{% endif %}
+      <strong>Availability:</strong>{% if module.availability %} Open {% else %}
+      Closed {% endif %}
     </p>
-    {% if module.availability %}
 
-      <div class="reg">
-        {% if has_registered %}
+    <div class="reg">
+      {% if has_registered %}
+      <a
+        href="{% url 'studentreg:module_unregister' module.code %}"
+        class="regBtn"
+        >Unregister
+      </a>
+      {% else %}
+      <a
+        href="{% url 'studentreg:module_register' module.code %}"
+        class="regBtn"
+        >Register
+      </a>
+      {% endif %}
+    </div>
+    <h1 class="color mt-4">Registrations</h1>
+    {% if user.is_authenticated %} {%for registration in registrations %}
+    <li class="list-group-item list-group-item-light">
+      <img
+        class="rounded-circle article-img"
+        src="{{registration.student.photo.url}}"
+      />
+
+      <span class="article-content"
+        >{{registration.student.user.first_name}}
+        {{registration.student.user.last_name}}
+      </span>
+      <span>
         <a
-          href="{% url 'studentreg:module_unregister' module.code %}"
+          href="{% url 'studentreg:module_feedback' module.code %}"
           class="regBtn"
-          >Unregister
+          >Feedback
         </a>
-        {% else %}
-        <a
-          href="{% url 'studentreg:module_register' module.code %}"
-          class="regBtn"
-          >Register
-        </a>
-        {% endif %}
-      </div>
-    {% endif %}
-    <hr>
-    <h1 class="color">Registrations</h1>
-    {% if user.is_authenticated %}
-        {%for registration in registrations %}
-          <li class="list-group-item list-group-item-light">
-            <img class="rounded-circle article-img" src="{{registration.student.photo.url}}">
-            
-            <span class="article-content">{{registration.student.user.first_name}} {{registration.student.user.last_name}}  </span>
-          </li>
-          {% empty %}
-            <p> No student registered</p>
-        {% endfor%}
-    {%endif%}
-    
+      </span>
+    </li>
+    {% empty %}
+    <p>No student registered</p>
+    {% endfor%} {%endif%}
   </section>
-    
+  <a href="{% url 'studentreg:module_feedback' module.code %}" class="regBtn"
+    >Feedback
+  </a>
 </main>
 
 {% endblock %}

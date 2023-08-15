@@ -17,4 +17,5 @@ urlpatterns = [
         name="module_unregister",
     ),
     path("my-registration/", views.my_registrations, name="my_registrations"),
+    path("module/<str:code>/submit-feedback/", views.module_feedback, name="module_feedback")
 ]

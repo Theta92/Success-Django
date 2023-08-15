@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 
+
 # For creating modules and their attributes
 class Module(models.Model):
     CATEGORY_CHOICES = [
@@ -64,3 +65,14 @@ class Registration(models.Model):
 
     def __str__(self):
         return f"Registration #{self.id}: {self.student} - {self.module}"
+    
+# Model for Module Feedback
+class ModuleFeedback(models.Model):
+    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    feedback_text = models.TextField()
+    rating = models.PositiveIntegerField(default=5)  # Rating on a scale of 1 to 5
+    date_submitted = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Feedback for {self.module.name} by {self.student.user.username}"

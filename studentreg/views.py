@@ -10,6 +10,7 @@ from .forms import (
     UserUpdateForm,
     StudentProfileUpdateForm,
     StudentCreationForm,
+    ModuleFeedbackForm,
 )
 
 # Password reset
@@ -19,8 +20,7 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
     PasswordResetCompleteView,
 )
-from .models import Student, Module, Group, Registration
-
+from .models import Student, Module, Group, Registration, ModuleFeedback
 
 def home(request):
         # To retrieve all courses
@@ -204,4 +204,23 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     
     # Custom Password Reset Complete View
     template_name = "auth/password_reset_complete.html"
-    
+
+@login_required
+def module_feedback(request, code):
+    module = get_object_or_404(Module, code=code)
+    student = request.user.student
+
+    if request.method == 'POST':
+        form = ModuleFeedbackForm(request.POST)
+        if form.is_valid():
+            feedback = form.save(commit=False)
+            feedback.module = module
+            feedback.student = student
+            feedback.save()
+            messages.success(request, 'Feedback submitted successfully!')
+            return redirect('studentreg:module_detail', args=[module.code])
+    else:
+        form = ModuleFeedbackForm()
+
+    context = {'form': form, 'module': module}
+    return render(request, 'studentreg/module_feedback.html', context)

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Group
 
-from .models import Student
+from .models import Student, ModuleFeedback
 
 # Form for new user registration
 class RegisterForm(UserCreationForm):
@@ -184,3 +184,8 @@ class StudentProfileUpdateForm(forms.ModelForm):
                 }
             ),
         }
+# Form for feedback from students
+class ModuleFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = ModuleFeedback
+        fields = ['feedback_text', 'rating']
