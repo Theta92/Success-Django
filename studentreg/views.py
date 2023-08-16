@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.core.paginator import Paginator
 
+from .utils import send_mail
+
 # Importing all forms
 from .forms import (
     RegisterForm,
@@ -86,6 +88,7 @@ def profile(request):
         if u_form.is_valid and sp_form.is_valid:
             u_form.save()
             sp_form.save()
+            send_mail(email=request.user.email, subject="Profile Updated",message="Your account has been successfully updated")
             messages.success(request, "Your account has been successfully updated")
             return redirect("profile")
     else:
