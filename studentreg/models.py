@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
+from rest_framework import serializers
+
 
 
 # For creating modules and their attributes
@@ -76,3 +78,4 @@ class ModuleFeedback(models.Model):
 
     def __str__(self):
         return f"Feedback for {self.module.name} by {self.student.user.username}"
+    

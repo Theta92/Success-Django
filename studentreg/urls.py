@@ -1,5 +1,11 @@
 from django.urls import path, include
 from . import views
+from rest_framework.routers import DefaultRouter
+from .views import ModuleListView, StudentViewSet, RegistrationCreateView
+
+router = DefaultRouter()
+router.register(r'students', StudentViewSet)
+
 
 app_name = "studentreg"
 
@@ -17,5 +23,9 @@ urlpatterns = [
         name="module_unregister",
     ),
     path("my-registration/", views.my_registrations, name="my_registrations"),
-    path("module/<str:code>/submit-feedback/", views.module_feedback, name="module_feedback")
+    path("module/<str:code>/submit-feedback/", views.module_feedback, name="module_feedback"),
+    path('api/modules/', ModuleListView.as_view(), name='module-list'),
+    path('api/registrations/create/', RegistrationCreateView.as_view(), name='registration-create'),
+    path('api/', include(router.urls)),
+
 ]

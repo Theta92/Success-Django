@@ -3,6 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.core.paginator import Paginator
+from rest_framework import generics, viewsets
+from .serializers import ModuleSerializer, StudentSerializer, RegistrationSerializer
+import requests
+
 
 # Importing all forms
 from .forms import (
@@ -110,10 +114,13 @@ def module_detail(request, code):
 
     # Get module details and related registrations
     module = get_object_or_404(Module, code=code)
+    feedback = module.modulefeedback_set.all()  # Retrieve all feedback for the module
+
     context = {
         "title": "Modules",
         "registrations": module.module_registrations, 
-        "module": module
+        "module": module,
+        "feedback": feedback
         }
     if student:
         context["has_registered"]=student.registered_on_module(module)
@@ -172,7 +179,6 @@ def my_registrations(request):
 
 
 class CustomPasswordResetView(PasswordResetView):
-    # we still need to take care of when user puts in an incorrect email that doesn't exist
     # i think  django will not find the user by the incorrect email
     # so no email will get sent
 
@@ -218,9 +224,42 @@ def module_feedback(request, code):
             feedback.student = student
             feedback.save()
             messages.success(request, 'Feedback submitted successfully!')
-            return redirect('studentreg:module_detail', args=[module.code])
+            return redirect('studentreg:module_detail', code=code)
     else:
         form = ModuleFeedbackForm()
 
     context = {'form': form, 'module': module}
     return render(request, 'studentreg/module_feedback.html', context)
+
+class ModuleListView(generics.ListAPIView):
+    queryset = Module.objects.all()
+    serializer_class = ModuleSerializer
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class RegistrationCreateView(generics.CreateAPIView):
+    serializer_class = RegistrationSerializer
+
+
+def get_educational_quote(api_token):
+    url = "https://quotes.rest/qod?category=students"
+    headers = {"Authorization": f"Bearer {api_token}"}
+
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        if "contents" in data and "quotes" in data["contents"]:
+            quote = data["contents"]["quotes"][0]["quote"]
+            return quote
+    return None
+
+api_token = "YluVtr6xRlWf0e6viTLeNjs7YQQU2ykRjL5zfVA4r"
+quote = get_educational_quote(api_token)
+print(quote)
+
+
+
+
+

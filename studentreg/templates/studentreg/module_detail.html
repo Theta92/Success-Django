@@ -22,12 +22,18 @@
         class="regBtn"
         >Unregister
       </a>
+      <a
+        href="{% url 'studentreg:module_feedback' module.code %}"
+        class="regBtn"
+        >Feedback
+      </a>
       {% else %}
       <a
         href="{% url 'studentreg:module_register' module.code %}"
         class="regBtn"
         >Register
       </a>
+
       {% endif %}
     </div>
     <h1 class="color mt-4">Registrations</h1>
@@ -42,21 +48,34 @@
         >{{registration.student.user.first_name}}
         {{registration.student.user.last_name}}
       </span>
-      <span>
-        <a
-          href="{% url 'studentreg:module_feedback' module.code %}"
-          class="regBtn"
-          >Feedback
-        </a>
-      </span>
     </li>
     {% empty %}
     <p>No student registered</p>
     {% endfor%} {%endif%}
+
+    <h3 class="color mt-4">Feedback for {{ module.name }}</h3>
+    <table class="table table-striped mb">
+      <thead>
+        <tr>
+          <th>Feedback</th>
+          <th>Rating</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      {% for fb in feedback %}
+      <tbody
+      <tr>
+        <td>{{ fb.feedback_text }}</td>
+        <td>{{ fb.rating }}/5</td>
+        <td>{{ fb.date_submitted }}</td>
+      </tr>
+    {% empty %}
+    <p>No feedback yet.</p>
+    {% endfor %}
+    </tbody>
+  </table>
+
   </section>
-  <a href="{% url 'studentreg:module_feedback' module.code %}" class="regBtn"
-    >Feedback
-  </a>
 </main>
 
 {% endblock %}

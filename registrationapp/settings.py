@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "studentreg.apps.StudentregConfig",
     'crispy_forms',
-    'storages'
+    'storages',
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -179,3 +181,9 @@ EMAIL_USE_TLS = True
 # authentication credentials for the SMTP server
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
 EMAIL_HOST_PASSWORD = 'oicqcneeghndyubq'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
