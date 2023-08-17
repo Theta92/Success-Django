@@ -8,7 +8,7 @@ from .serializers import ModuleSerializer, StudentSerializer, RegistrationSerial
 import requests
 
 
-from .utils import send_mail
+from .utils import send_mail,get_educational_quote
 
 # Importing all forms
 from .forms import (
@@ -31,7 +31,8 @@ from .models import Student, Module, Group, Registration, ModuleFeedback
 def home(request):
         # To retrieve all courses
     courses = Group.objects.all()
-    context = {"title": "Welcome", "courses": courses}
+    quotes = get_educational_quote()
+    context = {"title": "Welcome", "courses": courses, "quotes": quotes}
     return render(request, "studentreg/home.html", context)
 
 
@@ -248,21 +249,21 @@ class RegistrationCreateView(generics.CreateAPIView):
     serializer_class = RegistrationSerializer
 
 
-def get_educational_quote(api_token):
-    url = "https://quotes.rest/qod?category=students"
-    headers = {"Authorization": f"Bearer {api_token}"}
+# def get_educational_quote(api_token):
+#     url = "https://quotes.rest/qod?category=students"
+#     headers = {"Authorization": f"Bearer {api_token}"}
 
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        data = response.json()
-        if "contents" in data and "quotes" in data["contents"]:
-            quote = data["contents"]["quotes"][0]["quote"]
-            return quote
-    return None
+#     response = requests.get(url, headers=headers)
+#     if response.status_code == 200:
+#         data = response.json()
+#         if "contents" in data and "quotes" in data["contents"]:
+#             quote = data["contents"]["quotes"][0]["quote"]
+#             return quote
+#     return None
 
-api_token = "YluVtr6xRlWf0e6viTLeNjs7YQQU2ykRjL5zfVA4r"
-quote = get_educational_quote(api_token)
-print(quote)
+# api_token = "YluVtr6xRlWf0e6viTLeNjs7YQQU2ykRjL5zfVA4r"
+# quote = get_educational_quote(api_token)
+# print(quote)
 
 # def get_educational_quote(request):
 #     url = "https://quotes.rest/qod?category=students"
