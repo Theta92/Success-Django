@@ -58,6 +58,17 @@
   </section>
   <!-- End About Section -->
 
+  <!-- Quotes section  -->
+  <section class="container">
+    <h3>Educational Quotes</h3>
+    {% if error %}
+    <p>{{ error }}</p>
+    {% else %} {% for quote in quotes %}
+    <p>{{ quote.quote }}</p>
+    {% endfor %} {% endif %}
+  </section>
+  <!-- End About Section -->
+
   <!-- ======= Counts Section ======= -->
   <section id="counts" class="counts section-bg">
     <div class="container">

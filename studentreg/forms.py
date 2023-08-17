@@ -189,3 +189,4 @@ class ModuleFeedbackForm(forms.ModelForm):
     class Meta:
         model = ModuleFeedback
         fields = ['feedback_text', 'rating']
+

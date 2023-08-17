@@ -8,6 +8,8 @@ from .serializers import ModuleSerializer, StudentSerializer, RegistrationSerial
 import requests
 
 
+from .utils import send_mail
+
 # Importing all forms
 from .forms import (
     RegisterForm,
@@ -39,6 +41,7 @@ def about(request):
 
 def contact(request):
     return render(request, "studentreg/contact.html", {"title": "Contact"})
+
 
 def courses(request):
     courses = Group.objects.all()
@@ -90,6 +93,7 @@ def profile(request):
         if u_form.is_valid and sp_form.is_valid:
             u_form.save()
             sp_form.save()
+            send_mail(email=request.user.email, subject="Profile Updated",message="Your account has been successfully updated")
             messages.success(request, "Your account has been successfully updated")
             return redirect("profile")
     else:
@@ -231,6 +235,7 @@ def module_feedback(request, code):
     context = {'form': form, 'module': module}
     return render(request, 'studentreg/module_feedback.html', context)
 
+
 class ModuleListView(generics.ListAPIView):
     queryset = Module.objects.all()
     serializer_class = ModuleSerializer
@@ -258,6 +263,16 @@ def get_educational_quote(api_token):
 api_token = "YluVtr6xRlWf0e6viTLeNjs7YQQU2ykRjL5zfVA4r"
 quote = get_educational_quote(api_token)
 print(quote)
+
+# def get_educational_quote(request):
+#     url = "https://quotes.rest/qod?category=students"
+#     response = requests.get(url)
+#     if response.status_code == 200:
+#         data = response.json()
+#         if "contents" in data and "quotes" in data["contents"]:
+#             quotes = data["contents"]["quotes"]
+#             return render(request, 'quotes/quotes.html', {'quotes': quotes})
+#     return render(request, 'quotes/quotes.html', {'error': 'Failed to fetch quotes'})
 
 
 
