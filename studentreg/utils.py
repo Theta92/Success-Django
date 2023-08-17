@@ -19,11 +19,4 @@ def get_educational_quote():
         if "contents" in data and "quotes" in data["contents"]:
             quote = data["contents"]["quotes"][0]["quote"]
             return quote
-    import pdb; pdb.set_trace()
     return None
-
-    
-
-    # response = requests.get(url, headers=headers)
-    # quotes=response.json()['contents']['quotes'][0]
-    
